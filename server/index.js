@@ -1,0 +1,26 @@
+require("dotenv").config();
+const express = require("express");
+const app = express();
+const cors = require("cors");
+const connection = require("./db");
+const userRoutes = require("./routes/user");
+const authRoutes = require("./routes/auth");
+const usernameRoutes = require('./routes/username');
+const recipe_storeRoutes = require('./routes/recipie_store');
+
+// database connection
+connection();
+
+// middlewares
+app.use(express.json());
+app.use(cors());
+
+// routes
+app.use("/api/users", userRoutes);
+app.use("/api/auth", authRoutes);
+app.use('/api/username', usernameRoutes);
+app.use("/api/recipe_store",recipe_storeRoutes);
+
+
+const port = process.env.PORT || 8080;
+app.listen(port, console.log(`Listening on port ${port}...`));
