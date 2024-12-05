@@ -45,7 +45,7 @@ export const AddMenu = () => {
           </label>
         </div>
 
-        <button className="ml-20 bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded">Update Recipe !!!</button>
+        <button className="ml-20 bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded">Add Recipe !!!</button>
       </div>
     );
 };
