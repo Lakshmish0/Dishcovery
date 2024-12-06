@@ -9,6 +9,7 @@ import { SearchMenuPage } from "./pages/SearchMenuPage";
 import { ProfilePage } from "./pages/ProfilePage";
 import { LikedRecipesPage } from "./pages/LikedRecipes";
 import { BookmarkRecipesPage } from "./pages/BookmarkRecipesPage";
+import { EditProfilePage } from "./pages/EditProfilePage";
 
 function App() {
   const user = localStorage.getItem("token");
@@ -35,6 +36,9 @@ function App() {
 
       {user &&<Route path="/bookmarked-recipes" element={<BookmarkRecipesPage />} />}
 	  <Route path="/bookmarked-recipes" element={<Navigate replace to="/login" />} />
+
+      {user &&<Route path="/edit-profile" element={<EditProfilePage />} />}
+	  <Route path="/edit-profile" element={<Navigate replace to="/login" />} />
 
     </Routes>
   );

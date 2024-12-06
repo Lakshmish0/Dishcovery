@@ -39,9 +39,9 @@ const Signup = () => {
 		<div className={styles.signup_container}>
 			<div className={styles.signup_form_container}>
 				<div className={styles.left}>
-					<h1>Recipe..<br></br>
-						Let's Get you set up!
-</h1>
+					<h1 className="text-2xl font-bold text-center py-3">Recipe..</h1>
+					<h2 className="text-xl font-bold text-center py-3">Let's Get you set up!</h2>
+
 					<Link to="/login">
 						<button type="button" className={styles.white_btn}>
 							Sign in
@@ -50,7 +50,7 @@ const Signup = () => {
 				</div>
 				<div className={styles.right}>
 					<form className={styles.form_container} onSubmit={handleSubmit}>
-						<h1>Create a new account to access all features</h1>
+						<h2 className="text-2xl text-center py-3">Create a new account to access all features</h2>
 						<input
 							type="text"
 							placeholder="First Name"
