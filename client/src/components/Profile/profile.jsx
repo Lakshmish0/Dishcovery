@@ -20,9 +20,10 @@ export const Profile = () => {
             <p><strong>Name:</strong> Koushik S Jain</p>
             <p><strong>Email:</strong> User Email Here</p>
             <p><strong>Phone Number:</strong> User Phone no. Here</p>
+            <Link to="/edit-profile">
             <button className="bg-yellow-600 text-white px-3 py-1 mt-2 rounded-2xl">
               Edit Profile
-            </button>
+            </button></Link>
           </div>
         </div>
         

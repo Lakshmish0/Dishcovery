@@ -109,12 +109,12 @@ export const AddMenu = () => {
             Add The Recipe Of Your Choice!
           </h2>
           <div className="mb-4 flex flex-col items-center">
-            <div className="w-48 h-48 border border-gray-200 rounded overflow-hidden flex items-center justify-center">
+            <div className="w-48 h-48 mb-4 border border-gray-200 rounded overflow-hidden flex items-center justify-center ">
               {preview ? (
                 <img
                   src={preview}
                   alt="Preview"
-                  className="w-full h-full object-contain"
+                  className="w-full h-full object-contain py-6"
                 />
               ) : (
                 <span className="text-6xl text-gray-200">Photo</span>
