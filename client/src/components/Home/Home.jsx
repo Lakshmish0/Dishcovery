@@ -22,7 +22,7 @@ export const Home = () => {
             </div>
         </section>
         
-        <section className="px-10">
+        <section className="sliding-section px-10" style={{ backgroundImage: "url('/pattern-bg.png')" }}>
             <h2 className="font-semibold text-yellow-600 text-3xl">Dish Of The Day !</h2>
             <div className="flex justify-between mt-4 items-center">
                 <img 
@@ -44,7 +44,7 @@ export const Home = () => {
             </div>
         </section>
 
-        <section className="px-10 mt-6">
+        <section style={{ backgroundImage: "url('/pattern-bg.png')" }} className="px-10 mt-6">
             <h2 className="font-semibold text-blue-600 text-3xl py-3">Popular For You !</h2>
             <div className="flex justify-between mt-4 items-center">
                 <img 
