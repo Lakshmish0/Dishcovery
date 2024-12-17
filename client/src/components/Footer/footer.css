@@ -1,0 +1,20 @@
+footer {
+  background-color: #f6e05e; /* Tailwind's yellow-500 */
+}
+
+footer a {
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+footer a:hover {
+  color: #d69e2e; /* A darker shade for hover effect */
+  transform: translateY(-2px);
+}
+
+footer img {
+  transition: transform 0.3s ease;
+}
+
+footer img:hover {
+  transform: scale(1.1); /* Slightly enlarge logo on hover */
+}
