@@ -5,12 +5,11 @@ import "../../styles/global.css";
 export const EditProfile = () => {
   return (
     <div className="max-w-lg mx-auto my-10 bg-white p-8 rounded-xl shadow-md">
-      <h2 className="text-2xl font-semibold text-yellow-500">
-        Edit User Profile{" "}
-        <span className="text-blue-500 cursor-pointer">Preview</span>
+      <h2 className="text-2xl font-semibold text-yellow-500 mb-6">
+        Edit User Profile{" "} <span className="text-blue-500 cursor-pointer">Preview</span>
       </h2>
-
-      <div className="rounded-xl overflow-hidden relative">
+      
+      <div className="rounded-xl overflow-hidden mb-6 relative">
         <div className="relative p-4">
           <div className="bg-white rounded-full p-2 inline-block">
             <img
@@ -21,17 +20,15 @@ export const EditProfile = () => {
           </div>
           <div className="mt-4">
             <h3 className="font-semibold mb-1 text-yellow-500">Your Photo</h3>
-            <p className="text-gray-600 text-sm mb-4">
-              This will be displayed on your profile
-            </p>
-            <input
-              type="file"
-              id="upload"
-              className="hidden"
-              accept="image/*"
+            <p className="text-gray-600 text-sm mb-4">This will be displayed on your profile</p>
+            <input 
+              type="file" 
+              id="upload" 
+              className="hidden" 
+              accept="image/*" 
             />
-            <label
-              htmlFor="upload"
+            <label 
+              htmlFor="upload" 
               className="text-white bg-yellow-500 hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 cursor-pointer"
             >
               Upload New
@@ -40,14 +37,13 @@ export const EditProfile = () => {
             <button className="text-white bg-blue-500 hover:bg-yellow-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">
               Go back
             </button></Link>
+            
           </div>
         </div>
       </div>
 
       <div className="mb-6">
-        <h3 className="font-semibold text-gray-900 mb-4 text-yellow-500">
-          Personal information
-        </h3>
+        <h3 className="font-semibold text-gray-900 mb-4 text-yellow-500">Personal information</h3>
         <div className="mb-4">
           <label className="block text-gray-700" htmlFor="user-name">
             Full Name
@@ -109,8 +105,9 @@ export const EditProfile = () => {
         </div>
       </div>
       <button className="text-white bg-yellow-500 hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">
-        Save
+              Save
       </button>
     </div>
   );
 };
+

@@ -1,7 +1,6 @@
-import React from "react";
-import { Route, Routes, Navigate } from "react-router-dom";
-// import Main from "./components/Main";
-import Signup from "./components/Signup/";
+import React, { useEffect, useState } from "react";
+import { Route, Routes, Navigate, useNavigate } from "react-router-dom";
+import Signup from "./components/Signup";
 import Login from "./components/Login";
 import { HomePage } from "./pages/HomePage";
 import { AddMenu } from "./pages/AddMenuPage";
@@ -10,36 +9,54 @@ import { ProfilePage } from "./pages/ProfilePage";
 import { LikedRecipesPage } from "./pages/LikedRecipes";
 import { BookmarkRecipesPage } from "./pages/BookmarkRecipesPage";
 import { EditProfilePage } from "./pages/EditProfilePage";
+import { LandingPage } from "./pages/LandingPage";
 
 function App() {
-  const user = localStorage.getItem("token");
+  const navigate = useNavigate();
+  const [user, setUser] = useState(localStorage.getItem("token"));
+
+  // Monitor localStorage for changes and update user state
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    setUser(token);
+  }, []);
+
+  // Function to handle logout
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setUser(null);
+    navigate("/"); // Redirect to Landing Page after logout
+  };
 
   return (
     <Routes>
-      <Route path="/signup" exact element={<Signup />} />
-      <Route path="/login" exact element={<Login />} />
-
-      {user && <Route path="/" exact element={<HomePage />} />}
-      <Route path="/" element={<Navigate replace to="/login" />} />
-
-      {user && <Route path="/add-menu" element={<AddMenu />} />}
-      <Route path="/add-menu" element={<Navigate replace to="/login" />} />
-
-      {user &&<Route path="/search-menu" element={<SearchMenuPage />} />}
-	  <Route path="/search-menu" element={<Navigate replace to="/login" />} />
-
-      {user &&<Route path="/profile" element={<ProfilePage />} />}
-	  <Route path="/profile" element={<Navigate replace to="/login" />} />	
-
-      {user &&<Route path="/liked-recipes" element={<LikedRecipesPage />} />}
-	  <Route path="/liked-recipes" element={<Navigate replace to="/login" />} />
-
-      {user &&<Route path="/bookmarked-recipes" element={<BookmarkRecipesPage />} />}
-	  <Route path="/bookmarked-recipes" element={<Navigate replace to="/login" />} />
-
-    {user &&<Route path="/edit-profile" element={<EditProfilePage />} />}
-	  <Route path="/edit-profile" element={<Navigate replace to="/login" />} />
-
+      {/* Public Routes */}
+      {!user ? (
+        <>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
+          {/* Redirect unauthenticated users trying to access private routes */}
+          <Route path="*" element={<Navigate replace to="/" />} />
+        </>
+      ) : (
+        <>
+          {/* Private Routes */}
+          <Route path="/home" element={<HomePage />} />
+          <Route path="/add-menu" element={<AddMenu />} />
+          <Route path="/search-menu" element={<SearchMenuPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/liked-recipes" element={<LikedRecipesPage />} />
+          <Route path="/bookmarked-recipes" element={<BookmarkRecipesPage />} />
+          <Route path="/edit-profile" element={<EditProfilePage />} />
+          <Route path="/logout" element={<Navigate replace to="/" />} />
+          {/* Redirect logged-in users trying to access public routes */}
+          <Route path="/" element={<Navigate replace to="/home" />} />
+          <Route path="/login" element={<Navigate replace to="/home" />} />
+          <Route path="/signup" element={<Navigate replace to="/home" />} />
+          <Route path="*" element={<Navigate replace to="/home" />} />
+        </>
+      )}
     </Routes>
   );
 }

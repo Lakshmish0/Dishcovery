@@ -1,10 +1,8 @@
 import React from "react";
-import { useState, useEffect } from "react";
-import axios from "axios";
 import "../../styles/global.css";
 
 export const AddMenu = () => {
-  
+
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
 
@@ -101,13 +99,11 @@ export const AddMenu = () => {
     }
   };
 
-  return (
-    <form onSubmit={handleSubmit}>
-      <div className="w-full">
+    return (
+      <form onSubmit={handleSubmit}>
+      <div style={{ backgroundImage: "url('/pattern-bg.png')" }} className="w-full">
         <div className="container mx-auto mt-8 p-6 bg-white rounded">
-          <h2 className="text-2xl mb-4 border-b-4 border-yellow-500 font-bold p-2">
-            Add The Recipe Of Your Choice!
-          </h2>
+          <h2 style={{ backgroundImage: "url('/pattern-bg.png')" }} className="text-2xl mb-4 border-b-4 border-yellow-500 font-bold p-2 ">Add The Recipe Of Your Choice!</h2>
           <div className="mb-4 flex flex-col items-center">
             <div className="w-48 h-48 mb-4 border border-gray-200 rounded overflow-hidden flex items-center justify-center ">
               {preview ? (
@@ -138,9 +134,7 @@ export const AddMenu = () => {
         </div>
 
         <div className="mb-6 ml-20">
-          <label htmlFor="recipeName" className="text-lg mb-2 block">
-            Title
-          </label>
+          <label htmlFor="recipeName" className="text-lg mb-2 block">Title</label>
           <input
             id="recipeName"
             name="title"

@@ -1,7 +1,49 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 export const LikedRecipes = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const recipesPerPage = 1; // 1 recipe per page
+
+  // Pagination handlers
+  const nextPage = () => {
+    setCurrentPage(prev => prev + 1);
+  };
+
+  const prevPage = () => {
+    setCurrentPage(prev => Math.max(1, prev - 1));
+  };
+
+  // Generate 3 recipe replicas
+  const likedRecipes = [
+    {
+      id: 1,
+      title: "Roti and Sabji",
+      image: "frame-23.png",
+      ingredients: "To make Roti, you'll need whole wheat flour, water, and salt. For the Sabji, you'll need assorted vegetables like potatoes, spinach, cauliflower, and carrots. You'll also need onion, tomato, ginger-garlic paste, and a variety of spices including turmeric powder, cumin powder, coriander powder, and red chili powder. Finally, you'll need oil or ghee for cooking.",
+      description: "Roti and Sabji is a classic Indian meal. Soft, whole-wheat rotis are paired with a flavorful vegetable curry, or sabji. The vegetables are cooked with a blend of aromatic spices, creating a delicious and nutritious dish. This simple yet satisfying meal is a staple in Indian households and can be customized with a variety of vegetables and spices to suit individual preferences."
+    },
+    {
+      id: 2,
+      title: "Roti and Sabji 2",
+      image: "frame-23.png",
+      ingredients: "Similar ingredients to the first recipe",
+      description: "Another variation of Roti and Sabji"
+    },
+    {
+      id: 3,
+      title: "Roti and Sabji 3",
+      image: "frame-23.png",
+      ingredients: "Similar ingredients to the first recipe",
+      description: "Another variation of Roti and Sabji"
+    }
+  ];
+
+  // Pagination logic
+  const indexOfLastRecipe = currentPage * recipesPerPage;
+  const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage;
+  const currentRecipes = likedRecipes.slice(indexOfFirstRecipe, indexOfLastRecipe);
+
   return (
     <div className="py-10 px-6">
       <div className="max-w-4xl mx-auto">
@@ -41,30 +83,52 @@ export const LikedRecipes = () => {
         </div>
 
         {/* Recipe Card */}
-        <div className="rounded-2xl mb-6">
-          <div className="flex mb-2">
-            <div className="w-3/2">
-              <img 
-                className="w-full h-auto" 
-                src="frame-23.png" 
-                alt="Recipe"
-              />
-            </div>
-            <div className="relative w-3/4 pl-4">
-              <h3 className="text-xl font-semibold">Roti and Sabji</h3>
-              <p><b>Ingredients:</b> To make Roti, you'll need whole wheat flour, water, and salt. For the Sabji, you'll need assorted vegetables like potatoes, spinach, cauliflower, and carrots. You'll also need onion, tomato, ginger-garlic paste, and a variety of spices including turmeric powder, cumin powder, coriander powder, and red chili powder. Finally, you'll need oil or ghee for cooking.</p>
-              <p><b>Description:</b> Roti and Sabji is a classic Indian meal. Soft, whole-wheat rotis are paired with a flavorful vegetable curry, or sabji. The vegetables are cooked with a blend of aromatic spices, creating a delicious and nutritious dish. This simple yet satisfying meal is a staple in Indian households and can be customized with a variety of vegetables and spices to suit individual preferences.</p>
-              <button className="bg-red-500 text-white px-3 py-1 mt-2 rounded-2xl">
-                Unlike Recipe
-              </button>
+        {currentRecipes.map(recipe => (
+          <div key={recipe.id} className="rounded-2xl mb-6">
+            <div className="flex mb-2">
+              <div className="w-3/2">
+                <img 
+                  className="w-full h-auto" 
+                  src={recipe.image} 
+                  alt="Recipe"
+                />
+              </div>
+              <div className="relative w-3/4 pl-4">
+                <h3 className="text-xl font-semibold">{recipe.title}</h3>
+                <p><b>Ingredients:</b> {recipe.ingredients}</p>
+                <p><b>Description:</b> {recipe.description}</p>
+                <button className="bg-red-500 text-white px-3 py-1 mt-2 rounded-2xl">
+                  Unlike Recipe
+                </button>
+              </div>
             </div>
           </div>
-        </div>
+        ))}
 
         {/* Pagination */}
         <div className="flex justify-between items-center py-6">
-          <span>Page 1</span>
-          <i className="fas fa-chevron-right cursor-pointer"></i>
+          {/* Previous Page Button */}
+          {currentPage > 1 && (
+            <span 
+              className="text-yellow-500 text-lg cursor-pointer"
+              onClick={prevPage}
+            >
+              Previous
+            </span>
+          )}
+
+          {/* Current Page Display */}
+          <span className="font-semibold text-lg">Page {currentPage}</span>
+          
+          {/* Next Page Button */}
+          {currentPage < Math.ceil(likedRecipes.length / recipesPerPage) && (
+            <span 
+              className="text-yellow-500 text-lg cursor-pointer"
+              onClick={nextPage}
+            >
+              Next
+            </span>
+          )}
         </div>
       </div>
     </div>
