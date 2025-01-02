@@ -8,7 +8,8 @@ router.post("/", async (req, res) => {
         if (error)
             return res.status(400).send({ message: error.details[0].message });
 
-        const user = await User.findOne({ email: req.body.email });
+        const lower_email = req.body.email.toLowerCase();
+        const user = await User.findOne({ email: lower_email });
         if (user)
             return res
                 .status(409)
@@ -17,7 +18,7 @@ router.post("/", async (req, res) => {
         const salt = await bcrypt.genSalt(Number(process.env.SALT));
         const hashPassword = await bcrypt.hash(req.body.password, salt);
 
-        await new User({ ...req.body, password: hashPassword }).save();
+        await new User({ ...req.body,email:lower_email, password: hashPassword }).save();
         res.status(201).send({ message: "User created successfully" });
     } catch (error) {
         res.status(500).send({ message: "Internal Server Error" });

@@ -7,11 +7,30 @@ router.get("/", authMiddleware, async (req, res) => {
         // Find the user by their ID from the decoded token
         const user = await User.findById(req.user._id);
         if (!user) return res.status(404).send({ message: "User not found" });
+        // Return first and last name
+        res.status(200).send({
+            _id:user._id,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email:user.email,
+            likes: user.likes,
+            bookmarks: user.bookmarks,
+        });
+    } catch (error) {
+        res.status(500).send({ message: "Internal Server Error" });
+    }
+});
 
+router.get("/recipe/",  async (req, res) => {
+    try {
+        // Find the user by their ID from the decoded token
+        const user = await User.findById(req.query.user_id);
+        console.log(req.query.user_id)
+        if (!user) return res.status(404).send({ message: "User not found" });
         // Return first and last name
         res.status(200).send({
             firstName: user.firstName,
-            lastName: user.lastName
+            lastName: user.lastName,
         });
     } catch (error) {
         res.status(500).send({ message: "Internal Server Error" });

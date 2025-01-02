@@ -4,20 +4,17 @@ import axios from "axios";
 import "../../styles/global.css";
 
 export const AddMenu = () => {
-  
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-
+  const [user_id, setUser_id] = useState("");
   useEffect(() => {
     const fetchUserDetails = async () => {
       try {
         const token = localStorage.getItem("token"); // Retrieve the token from localStorage
-  
+
         if (!token) {
           console.error("No token found. Please login.");
           return;
         }
-  
+
         const response = await fetch("http://localhost:8080/api/username", {
           method: "GET",
           headers: {
@@ -25,11 +22,10 @@ export const AddMenu = () => {
             Authorization: `Bearer ${token}`, // Send token in Authorization header
           },
         });
-  
+
         if (response.ok) {
           const data = await response.json(); // Parse JSON from the response
-          setFirstName(data.firstName); // Update username state
-          setLastName(data.lastName);
+          setUser_id(data._id);
         } else {
           console.error("Failed to fetch user details:", response.statusText);
         }
@@ -37,16 +33,16 @@ export const AddMenu = () => {
         console.error("Error fetching user details:", error);
       }
     };
-  
+
     fetchUserDetails();
   }, []);
-  
+
   const [recipe, setRecipe] = useState({
+    user_id: "",
     title: "",
     description: "",
     category: "",
     photo: null,
-    username:"",
   });
 
   const [preview, setPreview] = useState(null);
@@ -69,16 +65,16 @@ export const AddMenu = () => {
       setRecipe({ ...recipe, [name]: value });
     }
   };
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
+    formData.append("user_id", user_id);
     formData.append("title", recipe.title);
     formData.append("description", recipe.description);
     formData.append("category", recipe.category);
     formData.append("photo", recipe.photo);
-    formData.append("username",firstName+lastName);
-    console.log(lastName+firstName);
+    console.log(user_id);
     try {
       const response = await axios.post(
         "http://localhost:8080/api/recipe_store",
@@ -89,11 +85,11 @@ export const AddMenu = () => {
       );
       alert("Recipe added successfully!");
       setRecipe({
+        user_id: user_id,
         title: "",
         description: "",
         category: "",
         photo: null,
-        username: firstName+lastName,
       });
       setPreview(null);
     } catch (error) {
